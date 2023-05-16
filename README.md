@@ -6,7 +6,8 @@
 2) 提供全球行政区域的高精度围栏,根据功能1生成geohash栅栏格,并提供低时间复杂度与低空间复杂度的根据经纬度判断所属行政区域的方法
 3) 目前提供中国省市区边界及全球国家边界的栅格化数据源
 
-## 核心类介绍
+# 核心类介绍
+## generator
 ### Region2GeoHashUtil
 该类提供算法，将指定的地理围栏栅格化，并返回GeoHash字符串
 #### 算法简要说明
@@ -40,4 +41,15 @@
   ![](./img/9.png)
 + 按照行政区域的精度来说,一般最小geohash精确至7~8位即可满足需求
   ![](./img/10.png)
+
+## lookup (以下相关逻辑描述等有时间完善)
+### GeoTilesSearch
+提供快速查找经纬度所属区域的相关方法
+### GlobalMapHelper
+根据GeoHash(WGS84坐标)判断经纬度是否在哪个国家
+### GlobalMapHelper
+根据GeoHash(WGS84坐标)判断经纬度是否在中国
+### GeoHashHelper
+封装了把经纬度与geohash相互转换的方法
+
 
