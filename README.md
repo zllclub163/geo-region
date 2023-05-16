@@ -14,17 +14,17 @@
   ```
   120.7296 30.7488,122.0079 30.8752,121.8756 31.2030,120.8326 31.9219,120.5796 31.2926,120.7296 30.7488,120.7296 30.7488
   ```
-  ![](http://fwhospitalgk.top:8080/img/6/e/6eaa3879e4ad5d56f483fe71b3b9ce2c.png)
+  ![](./img/1.png)
 + 首先找到此围栏的最大经纬度与最小经纬度,十位geohash分别为wtwv875qw1,wtmwzveksr,两点geohash有相同wt,因此此围栏一定在geohash矩形wt内
-  ![](http://fwhospitalgk.top:8080/img/0/1/01fa322159565d32d54125a96320d96b.png)
+  ![](./img/2.png)
 + 将wt内32个三位geohash矩形与围栏的位置关系做判断,在围栏内的geohash矩形:无,与围栏相交的geohash矩形有wtm,wtq,wtt,wtw
-  ![](http://fwhospitalgk.top:8080/img/7/c/7c754a7b99461008d907ccd032a22c36.png)
+  ![](./img/3.png)
 + 将上一步求出的与围栏相交的矩形wtm,wtq,wtt,wtw内四位geohash矩形与围栏位置做判断
-  ![](http://fwhospitalgk.top:8080/img/a/a/aa9422da687282aba2f3e55d91636df1.png)
+  ![](./img/4.png)
 + 此时在围栏内的geohash矩形:wtw0,wtw1,wtw2,wtw3,wtw4
-  ![](http://fwhospitalgk.top:8080/img/3/b/3ba2913fda34d7991be9b19fbd6ea38f.png)
+  ![](./img/5.png)
 + 与围栏相交的geohash矩形有wtmy,wtmz,wtqp,wtqr,wtqx,wtqz,wtt9,wttb,wttc,wttd,wttf,wttg,wttu,wttv,wtw5,wtw6,wtw7,wtw8,wtw9,wtwd,wtwh,wtwj
-  ![](http://fwhospitalgk.top:8080/img/7/9/79604fc9afbe84f7af72e7360eaffaa6.png)
+  ![](./img/6.png)
 + 进一步将上一步求出的与围栏相交的矩形内更精细的geohash矩形与围栏位置做判断
 + 此时在围栏内的geohash矩形:
   ```
