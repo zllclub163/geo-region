@@ -42,7 +42,7 @@ This class provides an algorithm to grid a specified geographical fence and retu
 + According to the accuracy of administrative regions, the minimum geohash is generally accurate to 7-8 bits to meet the requirements
   ![](./img/10.png)
 
-## lookup (以下相关逻辑描述等有时间完善)
+## lookup (The following logical descriptions have time to improve)
 ### GeoTilesSearch
 Provide relevant methods for quickly finding the region to which longitude and latitude belong
 ### GlobalMapHelper
