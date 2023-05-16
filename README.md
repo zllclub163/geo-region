@@ -7,7 +7,7 @@
 3) 目前提供中国省市区边界及全球国家边界的栅格化数据源
 
 ## 核心类介绍
-### FenceToGeoHashUtil
+### Region2GeoHashUtil
 该类提供算法，将指定的地理围栏栅格化，并返回GeoHash字符串
 #### 算法简要说明
 + 将geoJson文件转为格式为"lng lat,lng lat,...."的字符串,形成一个封闭区间,如:
