@@ -52,4 +52,6 @@
 ### GeoHashHelper
 封装了把经纬度与geohash相互转换的方法
 
+# Email: zllclub@163.com
+
 
