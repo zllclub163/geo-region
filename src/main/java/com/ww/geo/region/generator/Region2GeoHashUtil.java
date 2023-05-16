@@ -3,9 +3,9 @@ package com.ww.geo.region.generator;
 import ch.hsr.geohash.GeoHash;
 import com.ww.geo.region.util.GeoHashHelper;
 import com.ww.geo.region.util.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.util.CollectionUtils;
 
 import java.awt.Polygon;
 import java.awt.geom.Area;
