@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * @author Zhanglele
- * @version 2023/5/15
- */
+
 public class GeoTilesSearch {
     private static final Logger log = LoggerFactory.getLogger(GeoTilesSearch.class);
 
@@ -34,11 +31,12 @@ public class GeoTilesSearch {
     }
 
     private final static char ZERO = '0';
-    static Short getAreaId(double lat, double lng, long[] geoArr, int[] followArr, boolean china) {
-        return getAreaId(GeoHashHelper.getGeoHash(lat, lng), geoArr, followArr, china);
+
+    static Short getAreaId(double lat, double lng, long[] geoArr, int[] followArr, boolean nearby) {
+        return getAreaId(GeoHashHelper.getGeoHash(lat, lng), geoArr, followArr, nearby);
     }
 
-    static Short getAreaId(String geoHash, long[] geoArr, int[] followArr, boolean china) {
+    static Short getAreaId(String geoHash, long[] geoArr, int[] followArr, boolean nearby) {
         if (StringUtils.length(geoHash) < 8) {
             return null;
         }
@@ -46,16 +44,23 @@ public class GeoTilesSearch {
             //geoHash2Byte()不处理0开头的GeoHash,但是0区域在南极州不影响
             return null;
         }
+        long geoHashLong = ByteUtil.bytes2Long(geoHash2Byte(geoHash)) >> 10;
         for (int i = 8; i > 1; i--) {
-            int index = binarySearch(geoHash2long(geoHash.substring(0, i - 1)), geoHash.charAt(i-1), geoArr, followArr);
+            geoHashLong = geoHashLong >> 5;
+            int index = binarySearch(geoHashLong << 16, geoHash.charAt(i - 1), geoArr, followArr);
             if (!Objects.equals(index, -1)) {
                 return (short) (geoArr[index] & 0xffff);
             }
         }
-        if (!china) {
+        return findNearby(geoHash, geoArr, followArr, nearby);
+    }
+
+    private static Short findNearby(String geoHash, long[] geoArr, int[] followArr, boolean nearby) {
+        if (!nearby) {
             return null;
         }
-        //下面逻辑是处理国内省市区边界可能极小概率没有覆盖的情况
+        //下面逻辑是处理没有找到点,而查看附近距离最近的区域(误差最大为5位GeoHash的边长)
+        //如国内省市区边界可能极小概率没有覆盖的情况
         boolean insideChina = ChinaMapUtil.isInsideChina(geoHash);
         if (!insideChina) {
             return null;
@@ -67,9 +72,9 @@ public class GeoTilesSearch {
                 return null;
             }
             for (int i = 1; i < 8; i++) {
-                int index = binarySearch(geoHash2long(geoHashExpand[i].substring(0, geoHashExpand[i].length()-1)), geoHashExpand[i].charAt(geoHashExpand[i].length()-1), geoArr, followArr);
+                int index = binarySearch(geoHash2long(geoHashExpand[i].substring(0, geoHashExpand[i].length() - 1)), geoHashExpand[i].charAt(geoHashExpand[i].length() - 1), geoArr, followArr);
                 if (!Objects.equals(index, -1)) {
-                    if ((k != 8 && china)) {
+                    if (k != 8) {
                         log.warn("没有定位到地区,返回最接近的区域:geoHah:{},near:{}", geoHash, geoHashExpand[i]);
                     }
                     return (short) (geoArr[index] & 0xffff);
@@ -78,6 +83,7 @@ public class GeoTilesSearch {
         }
         return null;
     }
+
     public static long geoHash2long(String geoHash) {
         return ByteUtil.bytes2Long(geoHash2Byte(geoHash)) << 16;
     }
@@ -147,9 +153,10 @@ public class GeoTilesSearch {
 
         int i = ByteUtil.byte2int(ByteUtil.getPrintBytesFromString(hex8), 0);
         Byte index = baseIndex.get('w');
-        boolean b=((i >> index) & 1) == 1;
+        boolean b = ((i >> index) & 1) == 1;
 
     }
+
     /**
      * 自定义比较两个long后六个字节大小大小
      * max > min 返回true
@@ -227,7 +234,7 @@ public class GeoTilesSearch {
         if (length > 9) {
             byte b9 = baseIndex.get(geoHash.charAt(length - 10));
             bytes[2] |= (b9 << 5);
-            bytes[1] = (byte) (b9 >> 2);
+            bytes[1] = (byte) (b9 >> 3);
         }
         return bytes;
     }
@@ -317,8 +324,6 @@ public class GeoTilesSearch {
         }
         return newL;
     }
-
-
 
 
     //快排实现方法

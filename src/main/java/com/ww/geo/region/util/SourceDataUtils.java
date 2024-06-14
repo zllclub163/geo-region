@@ -24,6 +24,7 @@ import java.nio.file.Files;
 public class SourceDataUtils {
 
     public static void main(String[] args) throws IOException {
+        //compressFileZstd("C:\\workspace-wanway\\geo-region\\src\\main\\resources\\GEO_DATA_CHINA", "C:\\workspace-wanway\\geo-region\\src\\main\\resources", 99);
         //压缩
         String folderPath = "C:\\Users\\zllclub\\Downloads\\geo\\first";
         parkTarThenZstd(folderPath);
